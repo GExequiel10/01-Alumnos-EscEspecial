@@ -2,8 +2,9 @@ import json
 
 
 class Student:
-    def __init__(self, name, multigrade):
+    def __init__(self, name, surname, multigrade):
         self.name = name
+        self.surname = surname
         self.multigrade = multigrade
 
 
@@ -13,21 +14,9 @@ class ManageStudents:
         self.students = self.load_students()
 
     def load_students(self):
-        # if not self.file.endswitch('.json'):
-        #     return []
-
-        # with open(self.file, 'r') as f:
-        #     data = json.load(f)
-
-        # students = []
-        # for student in data:
-        #     new_student = Student(student('Nombre'), student['Multigrado'])
-        #     students.append(new_student)
-
-        # return students
         try:
             with open(self.file, 'r') as f:
-                return [Student(student('nombre'), student['Multigrado'])for student in json.load(f)]
+                return [Student(student['Nombre'], student['Apellido'], student['Multigrado'])for student in json.load(f)]
         except:
             return []
 
@@ -35,31 +24,33 @@ class ManageStudents:
         student_data = []
         for student in self.students:
             student_data.append(
-                {'Nombre': student.name, 'Multigrado': student.multigrade})
+                {'Nombre': student.name, 'Apellido': student.surname ,'Multigrado': student.multigrade})
         with open(self.file, 'w') as f:
             json.dump(student_data, f)
 
-    def add_student(self, name, multigrade):
-        self.students.append(Student(name, multigrade))
+    def add_student(self, name,surname, multigrade):
+        self.students.append(Student(name,surname, multigrade))
         self.save_students()
 
     def read_students(self):
-        for student in self.students:
-            print(f'Nombre: {student.name} Multigrado {student.multigrade}')
+        return self.students
 
-    def update_student(self, name, new_name, new_multigrade):
+    def update_student(self, name, surname, new_name, new_surname, new_multigrade):
         for student in self.students:
-            if student.name == name:
+            if student.name == name and student.surname == surname:
                 student.name = new_name
+                student.surname = new_surname
                 student.multigrade = new_multigrade
                 self.save_students()
+                print('Alumno encontrado y actualizado')
                 return
-            print('Alumno encontrado y actualizado')
+        print('Alumno no encontrado')
 
     def delete_student(self, name):
         for student in self.students:
             if student.name == name:
                 self.students.remove(student)
                 self.save_students()
+                print('Alumno encontrado y borrado')
                 return
-            print('Alumno encontrado y borrado')
+        print('Alumno no encontrado')

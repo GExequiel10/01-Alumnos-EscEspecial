@@ -28,4 +28,8 @@ def show_main():
 
 
 def get_choice():
-    return int(input('Ingrese una opcion: '))
+    while True:
+        try:
+            return int(input('Ingrese una opcion: '))
+        except ValueError:
+            console.print('Ingrese una opcion válida (solo numeros del 0-4):', style='bold red')
