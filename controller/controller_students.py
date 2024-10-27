@@ -1,5 +1,8 @@
 import json
 
+from rich.console import Console
+
+console = Console()
 
 class Student:
     def __init__(self, name, surname, multigrade):
@@ -24,12 +27,12 @@ class ManageStudents:
         student_data = []
         for student in self.students:
             student_data.append(
-                {'Nombre': student.name, 'Apellido': student.surname ,'Multigrado': student.multigrade})
+                {'Nombre': student.name, 'Apellido': student.surname, 'Multigrado': student.multigrade})
         with open(self.file, 'w') as f:
             json.dump(student_data, f)
 
-    def add_student(self, name,surname, multigrade):
-        self.students.append(Student(name,surname, multigrade))
+    def add_student(self, name, surname, multigrade):
+        self.students.append(Student(name, surname, multigrade))
         self.save_students()
 
     def read_students(self):
@@ -42,15 +45,15 @@ class ManageStudents:
                 student.surname = new_surname
                 student.multigrade = new_multigrade
                 self.save_students()
-                print('Alumno encontrado y actualizado')
+                console.print('Alumno encontrado y actualizado', style='bold blue')
                 return
-        print('Alumno no encontrado')
+        console.print('Alumno no encontrado', style='bold orange')
 
-    def delete_student(self, name):
+    def delete_student(self, name, surname):
         for student in self.students:
-            if student.name == name:
+            if student.name == name and student.surname == surname:
                 self.students.remove(student)
                 self.save_students()
                 print('Alumno encontrado y borrado')
                 return
-        print('Alumno no encontrado')
+        print('Alumno no encontrado(for)')

@@ -1,4 +1,5 @@
 import os
+import time # importe time para que la consola no quedara constanmente llena de informacion
 
 # importe la libreria rich para darle color al CRUD
 from rich.console import Console
@@ -18,7 +19,6 @@ def clear_display():
 
 def show_main():
     # creo el menu del CRUD
-    # clear_display()
     console.print('>>> MENU <<<', style='bold green')
     console.print('1.Agregar Alumno:', style='yellow')
     console.print('2.Leer Alumnos:', style='yellow')
@@ -29,7 +29,11 @@ def show_main():
 
 def get_choice():
     while True:
+        clear_display()
+        show_main()
         try:
             return int(input('Ingrese una opcion: '))
         except ValueError:
-            console.print('Ingrese una opcion válida (solo numeros del 0-4):', style='bold red')
+            console.print(
+                'Ingrese una opcion válida (solo numeros del 0-4):', style='bold red')
+            time.sleep(2)

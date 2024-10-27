@@ -39,8 +39,9 @@ def main():
                 print('LISTA DE ALUMNOS:')
                 for student in students:
                     print(
-                        f'{student.name} {student.surname} - Multigrado:{student.multigrade}')
+                        f'Multigrado:{student.multigrade} - {student.name} {student.surname}')
             print('---------------------------')
+            time.sleep(4)
 
         elif choice == 3:
             name = input('Nombre del alumno para actualizar: ')
@@ -50,10 +51,14 @@ def main():
             new_multigrade = int(input('Nuevo Multigrado: '))
             manage.update_student(name, surname, new_name,
                                   new_surname, new_multigrade)
+            console.print('Datos del alumno actualizado', style='bold green')
+            time.sleep(3)
 
         elif choice == 4:
             name = input('Nombre del alumno que desea borrar: ')
-            manage.delete_student(name)
+            surname = input('Apellido del alumno que desea borrar: ')
+            manage.delete_student(name, surname)
+            time.sleep(3)
 
         elif choice == 0:
             break
