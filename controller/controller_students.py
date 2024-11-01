@@ -2,7 +2,6 @@ import json
 import time
 from rich.console import Console
 from helpers.console_helpers import show_main, get_choice, clear_display
-# from controller.controller_students import ManageStudents
 
 console = Console()
 
@@ -13,7 +12,7 @@ class TodoStudents:
     def start(cls):
         manage = ManageStudents('students.json')
 
-        def show_students(): # metodo de instancia
+        def show_students():  # metodo de instancia
             students = manage.read_students()
             print('---------------------------')
             if not students:
@@ -52,18 +51,6 @@ class TodoStudents:
             elif choice == 2:
                 show_students()
                 time.sleep(3)
-                # students = manage.read_students()  # devuelve lista de alumnos
-                # print('---------------------------')
-                # if not students:
-                #     print('No hay alumnos registrados')
-                #     continue
-                # else:
-                #     print('LISTA DE ALUMNOS:')
-                #     for student in students:
-                #         print(
-                #             f'Multigrado:{student.multigrade} - {student.name} {student.surname}')
-                # print('---------------------------')
-                # time.sleep(3)
 
             elif choice == 3:
                 if not show_students():
@@ -81,7 +68,7 @@ class TodoStudents:
 
             elif choice == 4:
                 if not show_students():
-                    continue # o return???
+                    continue  # o return???
                 name = input('Nombre del alumno que desea borrar: ')
                 surname = input('Apellido del alumno que desea borrar: ')
                 manage.delete_student(name, surname)
